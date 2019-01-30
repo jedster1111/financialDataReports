@@ -1,0 +1,1 @@
+http://www.digitallook.com/cgi-bin/dlmedia/price_download.cgi/download.csv?action=download&csi=190159&start_day=29&start_month=01&start_year=2019&end_day=29&end_month=01&end_year=2019&type=csv
