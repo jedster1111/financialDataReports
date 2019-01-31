@@ -46,7 +46,7 @@ def main():
 
             allDownloadedLines = list(downloadedReader)
 
-            isThereNotTodaysData = len(allDownloadedLines) == 0 or datetime.datetime.strptime(allDownloadedLines[-1]["date"], "%d-%b-%Y").date() == today.date()
+            isThereNotTodaysData = len(allDownloadedLines) == 0 or datetime.datetime.strptime(allDownloadedLines[-1]["Date"], "%d-%b-%Y").date() == today.date()
 
             closingPrice = 0 if isThereNotTodaysData else allDownloadedLines[-1]["Close Price"]
 
@@ -54,7 +54,7 @@ def main():
 
             # Create report
             reportWriter.writerow({"id": id, "name": name, "symbol": symbol, "historicalLow": historicalLow, "historicalHigh": historicalHigh, "closingPrice": closingPrice, "indicator": indicator })
-            
+
             # Return to start of file but then skip the headers on first line
             downloadedFile.seek(0)
             next(downloadedReader)    
