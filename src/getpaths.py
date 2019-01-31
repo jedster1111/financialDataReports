@@ -8,3 +8,6 @@ def getTempFilePath():
 
 def getHistoryFilePath():
   return getCsvDirectoryPath() + "/history"
+
+def getReportsFilePath():
+  return getCsvDirectoryPath() + "/reports"
