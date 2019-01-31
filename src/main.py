@@ -46,11 +46,11 @@ def main():
 
             allDownloadedLines = list(downloadedReader)
 
-            isThereNotTodaysData = len(allDownloadedLines) == 0 or datetime.datetime.strptime(allDownloadedLines[-1]["Date"], "%d-%b-%Y").date() == today.date()
+            # isThereNotTodaysData = len(allDownloadedLines) == 0 or datetime.datetime.strptime(allDownloadedLines[-1]["Date"], "%d-%b-%Y").date() == today.date()
 
-            closingPrice = 0 if isThereNotTodaysData else allDownloadedLines[-1]["Close Price"]
+            closingPrice = 0 if len(allDownloadedLines) == 0 else allDownloadedLines[-1]["Close Price"]
 
-            indicator = "No Data" if isThereNotTodaysData else str(int((float(closingPrice) - float(historicalLow)) * 100 / (float(historicalHigh) - float(historicalLow)))) + "%"
+            indicator = str(int((float(closingPrice) - float(historicalLow)) * 100 / (float(historicalHigh) - float(historicalLow)))) + "%"
 
             # Create report
             reportWriter.writerow({"id": id, "name": name, "symbol": symbol, "historicalLow": historicalLow, "historicalHigh": historicalHigh, "closingPrice": closingPrice, "indicator": indicator })
