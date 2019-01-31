@@ -8,7 +8,7 @@ import csv
 import shutil
 
 def main():
-  daysInPast = int(input("How many days' of data do you want to download?"), 10)
+  daysInPast = int(input("How many days of data do you want to download? (Enter 0 for just today) "))
 
   today = datetime.datetime.now()
   yesterday = today - datetime.timedelta(daysInPast)
@@ -46,13 +46,16 @@ def main():
 
             allDownloadedLines = list(downloadedReader)
 
-            closingPrice = allDownloadedLines[-1]["Close Price"]
+            isThereNotTodaysData = len(allDownloadedLines) == 0 or datetime.datetime.strptime(allDownloadedLines[-1]["date"], "%d-%b-%Y").date() == today.date()
 
-            indicator = str(int((float(closingPrice) - float(historicalLow)) * 100 / (float(historicalHigh) - float(historicalLow)))) + "%"
+            closingPrice = 0 if isThereNotTodaysData else allDownloadedLines[-1]["Close Price"]
+
+            indicator = "No Data" if isThereNotTodaysData else str(int((float(closingPrice) - float(historicalLow)) * 100 / (float(historicalHigh) - float(historicalLow)))) + "%"
 
             # Create report
             reportWriter.writerow({"id": id, "name": name, "symbol": symbol, "historicalLow": historicalLow, "historicalHigh": historicalHigh, "closingPrice": closingPrice, "indicator": indicator })
-
+            
+            # Return to start of file but then skip the headers on first line
             downloadedFile.seek(0)
             next(downloadedReader)    
 
