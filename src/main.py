@@ -8,7 +8,7 @@ import csv
 import shutil
 
 def main():
-  daysInPast = int(input("How many days of data do you want to download? (Enter 0 for just today) "))
+  daysInPast = 7
 
   today = datetime.datetime.now()
   yesterday = today - datetime.timedelta(daysInPast)
